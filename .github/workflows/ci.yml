@@ -32,7 +32,7 @@ jobs:
       - name: Scan Python source
         run: bandit -q -r src/platform_guard
       - name: Scan repository configuration and secrets
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
@@ -67,7 +67,7 @@ jobs:
       - name: Build container image
         run: docker build --file Dockerfile --tag platform-guard:ci .
       - name: Scan container image
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: platform-guard:ci
           scan-type: image
