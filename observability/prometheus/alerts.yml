@@ -1,0 +1,20 @@
+groups:
+  - name: platform-guard
+    rules:
+      - alert: PlatformGuardCriticalFinding
+        expr: increase(platform_guard_findings_total{severity="critical"}[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: A critical AI workflow policy finding was reported.
+          description: Inspect the platform-guard scan response and remediate before rollout.
+
+      - alert: PlatformGuardHighFinding
+        expr: increase(platform_guard_findings_total{severity="high"}[10m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: A high-severity AI workflow policy finding was reported.
+          description: Review tool access, data handling, approval, and telemetry safeguards.

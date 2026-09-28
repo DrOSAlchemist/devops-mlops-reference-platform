@@ -1,0 +1,22 @@
+workflow:
+  name: experimental-agent
+  risk: high
+  model:
+    provider: openai
+    id: latest
+  tools:
+    allowed: []
+  input:
+    validation: false
+    prompt_injection_screening: false
+  output: {}
+  data:
+    pii_handling: allow
+  governance:
+    human_approval_required: false
+  budget:
+    max_usd: 0
+  limits:
+    max_steps: 0
+  observability:
+    redact_secrets: false

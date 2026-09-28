@@ -1,0 +1,26 @@
+workflow:
+  name: support-assistant
+  risk: high
+  model:
+    provider: azure-openai
+    id: support-model
+    revision: deployment-2026-09-01
+  tools:
+    allowed:
+      - search_approved_docs
+      - create_draft_response
+  input:
+    validation: true
+    prompt_injection_screening: true
+  output:
+    schema: support-response-v1
+  data:
+    pii_handling: redact
+  governance:
+    human_approval_required: true
+  budget:
+    max_usd: 0.25
+  limits:
+    max_steps: 6
+  observability:
+    redact_secrets: true

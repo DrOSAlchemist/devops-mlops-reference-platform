@@ -1,0 +1,35 @@
+version: 2.1
+
+jobs:
+  verify:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - pip-v1-{{ checksum "pyproject.toml" }}
+      - run:
+          name: Install
+          command: |
+            python -m pip install --upgrade pip setuptools
+            python -m pip install -e '.[dev]'
+      - save_cache:
+          key: pip-v1-{{ checksum "pyproject.toml" }}
+          paths:
+            - ~/.cache/pip
+      - run:
+          name: Lint and test
+          command: |
+            ruff check .
+            pytest -q
+      - run:
+          name: Dependency and source security
+          command: |
+            pip-audit --skip-editable
+            bandit -q -r src/platform_guard
+
+workflows:
+  verify:
+    jobs:
+      - verify

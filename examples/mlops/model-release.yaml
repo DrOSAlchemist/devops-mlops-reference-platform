@@ -1,0 +1,27 @@
+model:
+  name: support-classifier
+  provider: azure-ml
+  artifact:
+    uri: registry.example.invalid/models/support-classifier
+    digest: sha256:replace-with-immutable-artifact-digest
+  runtime:
+    image: ghcr.io/example/model-serving@sha256:replace-with-image-digest
+    framework: pytorch
+    framework_version: 2.6.0
+
+release:
+  strategy: canary
+  initial_traffic_percent: 5
+  observation_minutes: 15
+  rollback_on_gate_failure: true
+  approval_required: true
+
+gates:
+  max_error_rate_percent: 1
+  max_p95_latency_ms: 800
+  minimum_quality_score: 0.92
+
+data:
+  evaluation_dataset: ./evaluation/holdout-manifest.yaml
+  pii_policy: redact
+  retention_days: 30

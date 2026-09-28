@@ -1,0 +1,25 @@
+workflow:
+  name: vertex-document-assistant
+  risk: high
+  model:
+    provider: google-vertex-ai
+    id: replace-with-approved-vertex-model-id
+    revision: replace-with-pinned-model-revision
+  tools:
+    allowed:
+      - search_approved_docs
+  input:
+    validation: true
+    prompt_injection_screening: true
+  output:
+    schema: document-answer-v1
+  data:
+    pii_handling: redact
+  governance:
+    human_approval_required: true
+  budget:
+    max_usd: 0.25
+  limits:
+    max_steps: 6
+  observability:
+    redact_secrets: true

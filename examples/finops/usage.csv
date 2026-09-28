@@ -1,0 +1,5 @@
+date,service,cost_usd
+2026-09-01,model-inference,18.40
+2026-09-01,object-storage,3.20
+2026-09-02,model-inference,22.10
+2026-09-02,container-platform,8.75
